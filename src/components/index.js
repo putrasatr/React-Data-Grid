@@ -4,6 +4,8 @@ import { VStack, Image, Box, Flex } from "@chakra-ui/react";
 import ItemList from "./itemList";
 import RowSpanTable from "./rowSpanTable";
 import NFLWP from "../assets/images/nfl.jpg";
+import TableDnd from "./TableDnd";
+import TableDndColumn from './TableDndColumn';
 import "./styles.css";
 
 export default function MyApp() {
@@ -20,6 +22,9 @@ export default function MyApp() {
             </VStack>
             <Image src={NFLWP} height="40%" />
             <RowSpanTable />
+            <TableDnd />
+            <span>Table drag and drop</span>
+            <TableDndColumn />
         </VStack>
     )
 }
