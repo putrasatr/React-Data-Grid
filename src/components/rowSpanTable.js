@@ -1,9 +1,10 @@
 import * as React from "react";
-import { useTable } from "react-table";
+import { useTable, useResizeColumns } from "react-table";
 
 const borderStyle = {
     border: "1px solid gray",
-    padding: "8px 10px"
+    padding: "8px 10px",
+    position: "relative"
 };
 
 function useInstance(instance) {
@@ -78,6 +79,14 @@ export default function App() {
         ],
         []
     );
+    const defaultColumn = React.useMemo(
+        () => ({
+            minWidth: 50,
+            width: 150,
+            maxWidth: 300,
+        }),
+        []
+    )
     const {
         getTableProps,
         getTableBodyProps,
@@ -85,9 +94,16 @@ export default function App() {
         rows,
         prepareRow,
         rowSpanHeaders
-    } = useTable({ columns, data }, hooks => {
-        hooks.useInstance.push(useInstance);
-    });
+    } = useTable({
+        columns,
+        data,
+        defaultColumn
+    },
+        useResizeColumns,
+        hooks => {
+            hooks.useInstance.push(useInstance);
+        }
+    );
     return (
         <table {...getTableProps()}>
             <thead>
@@ -96,6 +112,8 @@ export default function App() {
                         {headerGroup.headers.map(column => (
                             <th {...column.getHeaderProps()} style={borderStyle}>
                                 {column.render("Header")}
+                                <div {...column.getResizerProps()}
+                                    className="resize" />
                             </th>
                         ))}
                     </tr>
@@ -110,7 +128,6 @@ export default function App() {
                         let rowSpanHeader = rowSpanHeaders.find(
                             x => x.id === cell.column.id
                         );
-                        console.log(rowSpanHeader, cell)
                         if (rowSpanHeader !== undefined) {
                             if (
                                 rowSpanHeader.topCellValue === null ||
