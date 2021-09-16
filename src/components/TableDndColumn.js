@@ -30,7 +30,7 @@ export default function App() {
             Header: "Profile Progress",
             accessor: "progress"
         },
-    ])
+    ],[])
     const [data, setData] = useState({
         columns,
         rows
