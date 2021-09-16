@@ -25,11 +25,29 @@ function useInstance(instance) {
 
     Object.assign(instance, { rowSpanHeaders });
 }
+function useDrop(instance) {
+    const { allColumns } = instance;
+    let dropper = []
+    allColumns.forEach(item => {
+        const { id, enableDrag } = item
+        if (enableDrag) dropper = [
+            ...dropper,
+            {
+                id, style: {
+                    backgroundColor: "red"
+                }
+            }
+        ]
+    })
+
+    Object.assign(instance, { dropper });
+}
 
 export default function App() {
     const origData = [
         {
             actor: "Johnny Depp",
+            origin: "USA",
             movies: [
                 {
                     name: "Pirates of the Carribean 1"
@@ -37,16 +55,6 @@ export default function App() {
                 {
                     name: "Pirates of the Carribean 2"
                 }
-            ]
-        },
-        {
-            actor: "Daniel Craig",
-            movies: []
-        },
-        {
-            actor: "Reza Rahardian",
-            movies: [
-                { name: "My Stupid Boss" }
             ]
         }
     ];
@@ -57,7 +65,7 @@ export default function App() {
                 return actorObj.movies.forEach(movie => {
                     newData.push({
                         actor: actorObj.actor,
-                        movie: movie.name
+                        movie: movie.name,
                     });
                 });
             newData.push({
@@ -66,18 +74,23 @@ export default function App() {
             });
         });
         return newData
-    },[])
+    }, [])
     const data = React.useMemo(() => getData(), [getData]);
     const columns = React.useMemo(
         () => [
             {
                 Header: "Actor",
                 accessor: "actor",
-                enableRowSpan: true
+                enableRowSpan: true,
+                enableDrag: true
             },
             {
                 Header: "Movies",
                 accessor: "movie"
+            },
+            {
+                Header: "Origin",
+                accessor: "origin"
             }
         ],
         []
@@ -96,7 +109,8 @@ export default function App() {
         headerGroups,
         rows,
         prepareRow,
-        rowSpanHeaders
+        rowSpanHeaders,
+        dropper
     } = useTable({
         columns,
         data,
@@ -105,16 +119,20 @@ export default function App() {
         useResizeColumns,
         hooks => {
             hooks.useInstance.push(useInstance);
+            hooks.useInstance.push(useDrop);
         }
     );
+    const dropStyle = dropper[0]
+    console.log(dropStyle)
     return (
         <table {...getTableProps()}>
             <thead>
                 {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
+                    <tr  {...headerGroup.getHeaderGroupProps()} {...dropStyle}>
                         {headerGroup.headers.map(column => (
                             <th {...column.getHeaderProps()} style={borderStyle}>
                                 {column.render("Header")}
+                                {console.log(column.getResizerProps())}
                                 <div {...column.getResizerProps()}
                                     className="resize" />
                             </th>
