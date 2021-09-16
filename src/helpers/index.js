@@ -1,6 +1,5 @@
 import { useLayoutEffect, useState } from "react";
 import namor from 'namor'
-import { MenuItem } from "@chakra-ui/menu";
 
 export function useWindowSize() {
     const [size, setSize] = useState([0, 0]);
