@@ -1,5 +1,6 @@
 import React from "react";
 import { VStack, Image, Box, Flex } from "@chakra-ui/react";
+import { } from "react-redux";
 
 import ItemList from "./itemList";
 import RowSpanTable from "./rowSpanTable";
@@ -9,6 +10,7 @@ import TableDndColumn from './TableDndColumn';
 import "./styles.css";
 
 export default function MyApp() {
+    // const [width,height] = useWindowSize()
     return (
         <VStack width="100%">
             <span>React Table Example</span>
