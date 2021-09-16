@@ -50,21 +50,24 @@ export default function App() {
             ]
         }
     ];
-    const newData = [];
-    origData.forEach(actorObj => {
-        if (actorObj.movies.length)
-            return actorObj.movies.forEach(movie => {
-                newData.push({
-                    actor: actorObj.actor,
-                    movie: movie.name
+    const getData = React.useCallback(() => {
+        let newData = []
+        origData.forEach(actorObj => {
+            if (actorObj.movies.length)
+                return actorObj.movies.forEach(movie => {
+                    newData.push({
+                        actor: actorObj.actor,
+                        movie: movie.name
+                    });
                 });
+            newData.push({
+                actor: actorObj.actor,
+                movie: ""
             });
-        newData.push({
-            actor: actorObj.actor,
-            movie: ""
         });
-    });
-    const data = React.useMemo(() => newData, []);
+        return newData
+    },[])
+    const data = React.useMemo(() => getData(), [getData]);
     const columns = React.useMemo(
         () => [
             {
