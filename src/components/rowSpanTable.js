@@ -1,5 +1,11 @@
 import * as React from "react";
-import { useTable, useResizeColumns } from "react-table";
+import { useTable, useResizeColumns, useSortBy } from "react-table";
+import {
+    Td, Th,
+    Table, Tr,
+    Tbody, Thead,
+    Tfoot
+} from "@chakra-ui/react";
 
 const borderStyle = {
     border: "1px solid gray",
@@ -53,7 +59,40 @@ export default function App() {
                     name: "Pirates of the Carribean 1"
                 },
                 {
-                    name: "Pirates of the Carribean 2"
+                    name: "Pirates of the Carribean 1"
+                },
+                {
+                    name: "Pirates of the Carribean 1"
+                },
+                {
+                    name: "Pirates of the Carribean 4"
+                }
+            ]
+        },
+        {
+            actor: "Tobey Maguire",
+            origin: "Indonesia",
+            movies: [
+                {
+                    name: "Spider-Man 1"
+                },
+                {
+                    name: "Spider-Man 2"
+                },
+                {
+                    name: "Spider-Man 3"
+                }
+            ]
+        },
+        {
+            actor: "Iko Uwais",
+            origin: "USA",
+            movies: [
+                {
+                    name: "The Raid 1"
+                },
+                {
+                    name: "The Raid 2"
                 }
             ]
         }
@@ -66,11 +105,13 @@ export default function App() {
                     newData.push({
                         actor: actorObj.actor,
                         movie: movie.name,
+                        origin: actorObj.origin
                     });
                 });
             newData.push({
                 actor: actorObj.actor,
-                movie: ""
+                movie: "",
+                origin: actorObj.origin
             });
         });
         return newData
@@ -86,11 +127,13 @@ export default function App() {
             },
             {
                 Header: "Movies",
-                accessor: "movie"
+                accessor: "movie",
+                enableRowSpan: true
             },
             {
                 Header: "Origin",
-                accessor: "origin"
+                accessor: "origin",
+                enableRowSpan: true
             }
         ],
         []
@@ -117,33 +160,31 @@ export default function App() {
         defaultColumn
     },
         useResizeColumns,
+        useSortBy,
         hooks => {
             hooks.useInstance.push(useInstance);
             hooks.useInstance.push(useDrop);
         }
     );
     const dropStyle = dropper[0]
-    console.log(dropStyle)
     return (
-        <table {...getTableProps()}>
-            <thead>
+        <Table {...getTableProps()} variant="striped" colorScheme="gray">
+            <Thead>
                 {headerGroups.map(headerGroup => (
-                    <tr  {...headerGroup.getHeaderGroupProps()} {...dropStyle}>
+                    <Tr  {...headerGroup.getHeaderGroupProps()} {...dropStyle}>
                         {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps()} style={borderStyle}>
+                            <Th {...column.getHeaderProps(column.getSortByToggleProps())} style={borderStyle}>
                                 {column.render("Header")}
-                                {console.log(column.getResizerProps())}
                                 <div {...column.getResizerProps()}
                                     className="resize" />
-                            </th>
+                            </Th>
                         ))}
-                    </tr>
+                    </Tr>
                 ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
+            </Thead>
+            <Tbody {...getTableBodyProps()}>
                 {rows.map((row, i) => {
                     prepareRow(row);
-
                     for (let j = 0; j < row.allCells.length; j++) {
                         let cell = row.allCells[j];
                         let rowSpanHeader = rowSpanHeaders.find(
@@ -168,24 +209,24 @@ export default function App() {
                 })}
                 {rows.map(row => {
                     return (
-                        <tr {...row.getRowProps()}>
+                        <Tr {...row.getRowProps()}>
                             {row.cells.map(cell => {
                                 if (cell.isRowSpanned) return null;
                                 else
                                     return (
-                                        <td
+                                        <Td
                                             style={borderStyle}
                                             rowSpan={cell.rowSpan}
                                             {...cell.getCellProps()}
                                         >
                                             {cell.render("Cell")}
-                                        </td>
+                                        </Td>
                                     );
                             })}
-                        </tr>
+                        </Tr>
                     );
                 })}
-            </tbody>
-        </table>
+            </Tbody>
+        </Table>
     );
 }
