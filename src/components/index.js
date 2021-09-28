@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { VStack, Image, Box, Flex, Stack, Spacer, Input } from "@chakra-ui/react";
-import { } from "react-redux";
 
 import ItemList from "./itemList";
 import RowSpanTable from "./rowSpanTable";
@@ -9,11 +8,13 @@ import useColumn from "../useColumn"
 import TableDnd from "./TableDnd";
 import TableDndColumn from './TableDndColumn';
 import ButtonIcon from "./ButtonIcon";
+import Counter from "./counter"
 import DataTable from "../Pagination";
 import "./styles.css";
 
 export default function MyApp() {
     const [add, setShowAdd] = useState(false)
+
     const isLoading = false,
         isError = false,
         isFetching = false,
@@ -26,7 +27,8 @@ export default function MyApp() {
                     price: 12000,
                     min_margin: 1,
                     max_margin: 1,
-                    is_active: true
+                    is_active: true,
+                    a: add
                 },
                 {
                     code: "AX5",
@@ -111,6 +113,7 @@ export default function MyApp() {
                     </Stack>
                 }
             />
+            <Counter />
         </VStack>
     )
 }

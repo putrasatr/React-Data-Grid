@@ -4,7 +4,6 @@ import {
     Td, Th,
     Table, Tr,
     Tbody, Thead,
-    Tfoot
 } from "@chakra-ui/react";
 
 const borderStyle = {
@@ -97,7 +96,7 @@ export default function App() {
             ]
         }
     ];
-    const getData = React.useCallback(() => {
+    const getData = () => {
         let newData = []
         origData.forEach(actorObj => {
             if (actorObj.movies.length)
@@ -115,8 +114,8 @@ export default function App() {
             });
         });
         return newData
-    }, [])
-    const data = React.useMemo(() => getData(), [getData]);
+    }
+    const data = getData()
     const columns = React.useMemo(
         () => [
             {
