@@ -5,6 +5,7 @@ import {
     Table, Tr,
     Tbody, Thead,
 } from "@chakra-ui/react";
+import EditTableInput from "./EditTableInput";
 
 const borderStyle = {
     border: "1px solid gray",
@@ -122,7 +123,8 @@ export default function App() {
                 Header: "Actor",
                 accessor: "actor",
                 enableRowSpan: true,
-                enableDrag: true
+                enableDrag: true,
+                Cell: props => <EditTableInput id={props.original} />
             },
             {
                 Header: "Movies",
