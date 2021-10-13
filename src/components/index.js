@@ -10,6 +10,7 @@ import TableDndColumn from './TableDndColumn';
 import ButtonIcon from "./ButtonIcon";
 import Counter from "./counter"
 import DataTable from "../Pagination";
+import EvergreenUI from "./Evergreen/evergreenUI";
 import "./styles.css";
 
 export default function MyApp() {
@@ -114,6 +115,7 @@ export default function MyApp() {
                 }
             />
             <Counter />
+            <EvergreenUI />
         </VStack>
     )
 }
