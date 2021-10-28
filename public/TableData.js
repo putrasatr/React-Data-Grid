@@ -19,7 +19,7 @@ import GoogleSheetIcon from "assets/icons/google-sheets.png";
 import { Button } from "components";
 import { IndeterminateCheckbox } from "utils";
 import { DRAG_DIRECTION_COLUMN, defaultDrageState } from "constants/index"
-import { offsetIndex, getNumberFormatThousand } from "helpers";
+import { offsetIndex, getNumberFormatThousand } from "utils/helper";
 
 
 const borderStyle = {

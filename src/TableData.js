@@ -8,7 +8,7 @@ import {
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 import { DRAG_DIRECTION_COLUMN, defaultDrageState } from "constants/index"
-import { offsetIndex } from "helpers";
+import { offsetIndex } from "utils/helper";
 
 
 export default function TableData({ getTableBodyProps, getTableProps, headerGroups, footerGroups, rows, prepareRow, data, onDragEnd }) {
