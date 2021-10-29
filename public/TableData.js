@@ -18,7 +18,7 @@ import TableIcon from "assets/icons/table.png";
 import GoogleSheetIcon from "assets/icons/google-sheets.png";
 import { Button } from "components";
 import { IndeterminateCheckbox } from "utils";
-import { DRAG_DIRECTION_COLUMN, defaultDrageState } from "constants/index"
+import { DRAG_DIRECTION_COLUMN, defaultDrageState } from "utils"
 import { offsetIndex, getNumberFormatThousand } from "utils/helper";
 
 
@@ -127,7 +127,7 @@ export default function TableData({
                             borderRadius="4px"
                             px="16px"
                             w="220px"
-                            bg="brand.main">
+                            bg="primary.main">
                             <Image src={TableIcon} />
                             <Text fontSize="14px" color="white" fontWeight="600">Filter Kolom Tabel</Text>
                             <Icon as={FiChevronDown} color="white" fontSize="20px" fontWeight="900" />
@@ -158,7 +158,7 @@ export default function TableData({
                     alignItems="center"
                     borderRadius="4px"
                     p="0"
-                    bg="brand.main">
+                    bg="primary.main">
                     <Button
                         justifyContent="space-between"
                         p="8px 16px"

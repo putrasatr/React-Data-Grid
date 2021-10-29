@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
-import { DRAG_DIRECTION_COLUMN, defaultDrageState } from "constants/index"
+import { DRAG_DIRECTION_COLUMN, defaultDrageState } from "utils"
 import { offsetIndex } from "utils/helper";
 
 
